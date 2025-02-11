@@ -1,0 +1,12 @@
+name: incubyte_assessment
+description: "A simple string calculator in Dart."
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.4.3 <4.0.0'
+
+dependencies:
+
+dev_dependencies:
+  test:
