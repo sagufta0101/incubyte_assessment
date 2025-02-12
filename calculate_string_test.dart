@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'calculate_string.dart';
+import 'string_calculator.dart';
 
 void main() {
   test('Empty string returns 0', () {
@@ -20,4 +20,22 @@ void main() {
   test('Numbers separated by custom delimeter', () {
     expect(add('//;\n1;2'), equals(3));
   });
+  test('Calling add with multiple negative numbers throws an exception', () {
+    var exception = expectThrows<ArgumentError>(() => add('-1,2,-2,3,-3'));
+    expect(exception.message,
+        contains('Negative numbers not allowed: -1, -2, -3'));
+  });
+}
+
+// Helper function to check for exceptions
+T expectThrows<T extends Object>(Function func) {
+  try {
+    func();
+  } catch (e) {
+    if (e is T) {
+      return e;
+    }
+    rethrow;
+  }
+  throw Exception('Expected exception of type $T but none was thrown.');
 }
