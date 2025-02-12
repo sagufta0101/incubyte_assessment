@@ -14,4 +14,7 @@ void main() {
   test('Multiple numbers returns their sum', () {
     expect(add('1,2,3,4,5'), equals(15));
   });
+  test('Numbers separated by newline delimeter', () {
+    expect(add('1\n2,3'), equals(6));
+  });
 }
