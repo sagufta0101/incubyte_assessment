@@ -11,17 +11,24 @@ int add(String numbers) {
   }
 
   List<String> numList = numbers.split(RegExp(delimeters));
+  _checkForNegativeNumbers(numList);
+
+  return numList.where((s) => s.isNotEmpty).map(int.parse).fold(
+        0,
+        (previousValue, nextValue) => previousValue + nextValue,
+      );
+}
+
+// Helper function to check for negative numbers and throw an exception
+void _checkForNegativeNumbers(List<String> numList) {
   List<int> negatives = numList
       .where((s) => s.isNotEmpty)
       .map(int.parse)
       .where((n) => n < 0)
       .toList();
+
   if (negatives.isNotEmpty) {
     throw ArgumentError(
         'Negative numbers not allowed: ${negatives.join(', ')}');
   }
-  return numList.where((s) => s.isNotEmpty).map(int.parse).fold(
-        0,
-        (previousValue, nextValue) => previousValue + nextValue,
-      );
 }
