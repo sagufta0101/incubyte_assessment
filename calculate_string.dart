@@ -10,18 +10,18 @@ int add(String numbers) {
     numbers = parts.length > 1 ? parts.sublist(1).join("\n") : "";
   }
 
-  return numbers
-      .split(RegExp(delimeters))
+  List<String> numList = numbers.split(RegExp(delimeters));
+  List<int> negatives = numList
       .where((s) => s.isNotEmpty)
       .map(int.parse)
-      .fold(
+      .where((n) => n < 0)
+      .toList();
+  if (negatives.isNotEmpty) {
+    throw ArgumentError(
+        'Negative numbers not allowed: ${negatives.join(', ')}');
+  }
+  return numList.where((s) => s.isNotEmpty).map(int.parse).fold(
         0,
         (previousValue, nextValue) => previousValue + nextValue,
       );
-}
-
-void main() {
-  String input = '//;\n1;2';
-  int result = add(input);
-  print('The sum of the numbers is: $result');
 }
